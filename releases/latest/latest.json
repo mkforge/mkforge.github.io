@@ -1,0 +1,10 @@
+{
+  "tag_name": "v0.1.0",
+  "published_at": "2024-12-26T21:19:14Z",
+  "assets": {
+    "darwin_arm64": "503f99f05c3e8e09cecedab196d05a59ba9df9013bd63cea3a7e15455698a577",
+    "darwin_amd64": "1587bd839525678847ece52b340b831ca275a6611debe1f36cddbd1791aad525",
+    "linux_amd64": "b504c15ddc3792c0e6ebc520c5046795110e6c8284b262440b55ade83a632ce5",
+    "linux_arm64": "adfe9c298775288b02c450da3b86929de39195309bd953e257fc65bc8ed1be31"
+  }
+}
