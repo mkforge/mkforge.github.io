@@ -17,8 +17,8 @@ plugins:
 nav:
   - title: Documentation
     url: /docs
-  - title: Downloads
-    url: /downloads
+  - title: Releases
+    url: /releases
   - title: GitHub
     url: https://github.com/mkforge/mkforge
 

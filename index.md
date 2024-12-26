@@ -32,7 +32,7 @@ Visit our [Documentation](/docs) for detailed guides and examples.
 
 ## Downloads
 
-Get the latest version from our [Downloads](/downloads) page.
+Get the latest version from our [Downloads](/releases) page.
 
 ## Contributing
 
