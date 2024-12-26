@@ -15,12 +15,10 @@ plugins:
 
 # Navigation
 nav:
-  - title: Getting Started
-    url: /docs/getting-started
-  - title: Installation
-    url: /docs/installation
-  - title: Releases
-    url: /releases
+  - title: Documentation
+    url: /docs
+  - title: Downloads
+    url: /downloads
   - title: GitHub
     url: https://github.com/mkforge/mkforge
 
