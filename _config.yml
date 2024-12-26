@@ -1,0 +1,30 @@
+title: MKForge
+description: Development tools for LLM integration and workflow automation
+url: https://mkforge.github.io
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+remote_theme: pages-themes/minimal@v0.2.0
+
+# Enable plugins
+plugins:
+  - jekyll-remote-theme
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Navigation
+nav:
+  - title: Getting Started
+    url: /docs/getting-started
+  - title: Installation
+    url: /docs/installation
+  - title: Releases
+    url: /releases
+  - title: GitHub
+    url: https://github.com/mkforge/mkforge
+
+# GitHub settings
+github:
+  is_project_page: true
+  repository_url: https://github.com/mkforge/mkforge
