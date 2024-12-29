@@ -7,35 +7,35 @@ title: MKForge Releases
 
 ## Latest Release
 
-{% raw %}
-{% assign latest_file = site.static_files | where_exp: "file", "file.path contains '/releases/latest/latest.json'" | first %}
-{% if latest_file %}
-{% assign latest = site.data.releases.latest %}
-{% if latest %}
-**Version {{ latest.tag_name }}** (Released {{ latest.published_at | date: "%Y-%m-%d" }})
+Version v0.1.0
 
-    ### Downloads
+### Downloads
 
-    | Platform | Architecture | File | Checksum |
-    |----------|-------------|------|----------|
-    | macOS | Apple Silicon | [mkforge-darwin-arm64](latest/mkforge-darwin-arm64) | `{{ latest.assets.darwin_arm64 }}` |
-    | macOS | Intel | [mkforge-darwin-amd64](latest/mkforge-darwin-amd64) | `{{ latest.assets.darwin_amd64 }}` |
-    | Linux | x86_64 | [mkforge-linux-amd64](latest/mkforge-linux-amd64) | `{{ latest.assets.linux_amd64 }}` |
-    | Linux | ARM64 | [mkforge-linux-arm64](latest/mkforge-linux-arm64) | `{{ latest.assets.linux_arm64 }}` |
-    | Windows | x86_64 | [mkforge-windows-amd64.exe](latest/mkforge-windows-amd64.exe) | `{{ latest.assets.windows_amd64 }}` |
-{% endif %}
-{% endif %}
-{% endraw %}
+| Platform | Architecture | File | Checksum |
+|----------|-------------|------|----------|
+| macOS | Apple Silicon | [mkforge-darwin-arm64](/releases/latest/mkforge-darwin-arm64) | [View](/releases/latest/checksums.txt) |
+| macOS | Intel | [mkforge-darwin-amd64](/releases/latest/mkforge-darwin-amd64) | [View](/releases/latest/checksums.txt) |
+| Linux | x86_64 | [mkforge-linux-amd64](/releases/latest/mkforge-linux-amd64) | [View](/releases/latest/checksums.txt) |
+| Linux | ARM64 | [mkforge-linux-arm64](/releases/latest/mkforge-linux-arm64) | [View](/releases/latest/checksums.txt) |
+| Windows | x86_64 | [mkforge-windows-amd64.exe](/releases/latest/mkforge-windows-amd64.exe) | [View](/releases/latest/checksums.txt) |
 
 ## All Releases
 
-{% raw %}
-{% assign version_dirs = site.static_files | where_exp: "file", "file.path contains '/releases/v'" | map: "path" | uniq %}
-{% for dir in version_dirs %}
-{% assign version = dir | split: "/" | last %}
-- [{{ version }}]({{ dir }})
-  {% endfor %}
-  {% endraw %}
+{% assign releases = site.static_files | where_exp: "file", "file.path contains '/releases/v'" | map: "path" | split: "/" | uniq %}
+{% for release in releases %}
+{% unless release contains "latest" %}
+### {{ release }}
+
+| File | Checksum |
+|------|----------|
+    {% assign files = site.static_files | where_exp: "file", "file.path contains release" %}
+    {% for file in files %}
+      {% unless file.path contains 'checksums.txt' or file.path contains 'latest.json' %}
+| [{{ file.name }}](/releases/{{ release }}/{{ file.name }}) | [View](/releases/{{ release }}/checksums.txt) |
+{% endunless %}
+{% endfor %}
+{% endunless %}
+{% endfor %}
 
 ## Installation
 
