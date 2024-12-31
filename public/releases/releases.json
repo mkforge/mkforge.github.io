@@ -1,1 +1,16 @@
-{"releases": []}
+{
+  "releases": [
+    {
+      "tag_name": "v0.1.0",
+      "published_at": "2024-12-31T22:29:08Z",
+      "latest": true,
+      "assets": {
+        "darwin_arm64": "db4b4ff45806bee209a75e4d924f86f47a72de4f6aae4ace895a1777d5fb7ad8",
+        "darwin_amd64": "dc202d0e9eaec5645e5dd10cce2014727cd665ab508e8dcaeb63c78d0c92bf5a",
+        "linux_amd64": "95e2cb5144b11c2cab2779597ddd8ee7d708f85ef22c9dfd07544a101baa1c60",
+        "linux_arm64": "b6782dfdae71f771481a3d6f6efd0ea306a31cfdf714f121da2c32b5ad49d4d7",
+        "windows_amd64": "ac3945030b58330907b54c49bce96ce786324a3a12eb4e58c2d7f39ea9b0d0bc"
+      }
+    }
+  ]
+}
