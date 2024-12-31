@@ -1,45 +1,92 @@
 ---
-layout: default
-title: MKForge
+layout: home
+hero:
+  name: MKForge
+  text: Swiss Army knife for development tasks
+  tagline: Generate context for LLMs, analyze projects, and automate development workflows
+  actions:
+    - theme: brand
+      text: Download
+      link: /downloads
+    - theme: alt
+      text: Documentation
+      link: /guide
+
+features:
+  - icon: 🔄
+    title: Context Generation
+    details: Create comprehensive context for LLM interactions with automatic project analysis and smart content processing.
+    
+  - icon: 🔍
+    title: Project Analysis
+    details: Automatic detection of project type, dependencies, and structure with intelligent file filtering.
+    
+  - icon: ⚡
+    title: Fast & Efficient
+    details: Optimized for performance with smart caching and incremental updates for large codebases.
+
+  - icon: 🛠️
+    title: Customizable
+    details: Configure ignore patterns, file size limits, and output formats to match your workflow.
+    
+  - icon: 🔒
+    title: Privacy-First
+    details: All processing happens locally. Your code never leaves your machine.
+    
+  - icon: 📦
+    title: Easy Installation
+    details: Simple installation via Homebrew or direct download, with automatic updates.
 ---
 
-# MKForge
-
-MKForge is a Swiss Army knife for development tasks, focusing on generating context for Large Language Models (LLMs) and automating common development workflows.
-
-## Key Features
-
-- **Context Generation**: Create comprehensive context files for LLM interactions
-- **Project Analysis**: Automatically detect project type and structure
-- **Git Integration**: Include Git information in context
-- **Smart Filtering**: Intelligent file filtering and content processing
-- **Configurable**: Support for global and project-specific configurations
+<div class="download-section">
+  <DownloadButton />
+</div>
 
 ## Quick Start
 
 ```bash
-# Install via Homebrew
+# Install via Homebrew (macOS/Linux)
 brew tap mkforge/homebrew-mkforge
 brew install mkforge
 
-# Generate context for your project
+# Generate context for current project
 mkforge context
+
+# Show help
+mkforge --help
 ```
 
-## Documentation
+## Features
 
-Visit our [Documentation](/docs) for detailed guides and examples.
+- **Smart Project Analysis**: Automatically detects project type, structure, and relevant files
+- **Configurable Output**: Choose between Markdown or text output with customizable formatting
+- **Git Integration**: Includes Git information and respects .gitignore patterns
+- **Incremental Updates**: Only regenerates context when source files change
+- **Fast & Efficient**: Optimized for large codebases with smart filtering
+- **Language Agnostic**: Works with any programming language or project structure
 
-## Downloads
+## Use Cases
 
-Get the latest version from our [Downloads](/releases) page.
+- Generate comprehensive context for LLM coding assistants
+- Document project structure and organization
+- Analyze codebase patterns and dependencies
+- Create project summaries for documentation
+- Prepare context for code reviews
 
-## Contributing
+## License
 
-MKForge is open source and we welcome contributions! Visit our [GitHub repository](https://github.com/mkforge/mkforge) to get started.
+MKForge is released under the MIT License. See the [GitHub repository](https://github.com/mkforge/mkforge) for more information.
 
-## Support
+<style>
+.download-section {
+  margin: 3rem 0;
+  text-align: center;
+}
 
-- [GitHub Issues](https://github.com/mkforge/mkforge/issues) - Bug reports and feature requests
-- [Documentation](/docs) - User guides and reference
-- [Releases](https://mkforge.github.io/releases) - Release notes and downloads
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #0047ab 30%, #4169e1);
+  --vp-c-brand: #0047ab;
+  --vp-c-brand-dark: #003380;
+}
+</style>
