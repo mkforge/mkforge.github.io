@@ -5,7 +5,11 @@ export default defineConfig({
     description: 'Swiss Army knife for development tasks',
 
     head: [
-        ['link', { rel: 'icon', href: '/favicon.ico' }]
+        ['link', { rel: 'icon', href: '/favicon.ico' }],
+        ['meta', {
+            'http-equiv': 'Content-Security-Policy',
+            content: "default-src 'self'; connect-src 'self'; download-src 'self'"
+        }]
     ],
 
     themeConfig: {

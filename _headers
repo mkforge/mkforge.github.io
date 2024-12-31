@@ -1,0 +1,7 @@
+/public/releases/v*/mkforge-*
+  Content-Type: application/octet-stream
+  Content-Disposition: attachment
+
+/public/releases/v*/mkforge-*.exe
+  Content-Type: application/vnd.microsoft.portable-executable
+  Content-Disposition: attachment
