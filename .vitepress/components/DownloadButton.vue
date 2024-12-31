@@ -49,7 +49,18 @@ onMounted(async () => {
 const getDownloadUrl = () => {
   if (!latestRelease.value) return ''
   const version = latestRelease.value.tag_name
+  // Remove the domain for local development
   return `/releases/${version}/mkforge-${platform.value}-${arch.value}${platform.value === 'windows' ? '.exe' : ''}`
+}
+
+const handleDownload = (e: Event) => {
+  e.preventDefault()
+  const link = document.createElement('a')
+  link.href = getDownloadUrl()
+  link.download = `mkforge-${platform.value}-${arch.value}${platform.value === 'windows' ? '.exe' : ''}`
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
 }
 
 const getInstallCommand = () => {
@@ -68,13 +79,14 @@ const getInstallCommand = () => {
 <template>
   <div class="download-button">
     <div v-if="latestRelease" class="download-section">
-      <a :href="getDownloadUrl()" class="download-link">
+      <!-- Change from <a> to <button> -->
+      <button @click="handleDownload" class="download-link">
         <span class="download-icon">⬇️</span>
         Download MKForge
         <span v-if="showVersion" class="version">
           {{ latestRelease.tag_name }}
         </span>
-      </a>
+      </button>
 
       <div class="install-command">
         <pre><code>{{ getInstallCommand() }}</code></pre>
@@ -105,10 +117,12 @@ const getInstallCommand = () => {
   padding: 0.8rem 1.6rem;
   background-color: var(--vp-c-brand);
   color: white;
+  border: none;
   border-radius: 8px;
-  text-decoration: none;
   font-weight: 500;
+  cursor: pointer;
   transition: background-color 0.2s;
+  font-size: 1em;
 }
 
 .download-link:hover {

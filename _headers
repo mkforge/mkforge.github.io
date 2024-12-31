@@ -5,3 +5,12 @@
 /public/releases/v*/mkforge-*.exe
   Content-Type: application/vnd.microsoft.portable-executable
   Content-Disposition: attachment
+
+/*.js
+  Content-Type: application/javascript
+
+/*.mjs
+  Content-Type: application/javascript
+
+/*.css
+  Content-Type: text/css
