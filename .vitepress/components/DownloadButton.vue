@@ -14,6 +14,7 @@ const latestRelease = ref<{
     darwin_amd64: string
     linux_amd64: string
     linux_arm64: string
+    windows_amd64: string
   }
 }>()
 
@@ -24,7 +25,9 @@ onMounted(async () => {
   try {
     const response = await fetch('/releases/releases.json')
     const data = await response.json()
-    latestRelease.value = data.releases.find(r => r.latest)
+    latestRelease.value = data.releases.find(r => props.version ?
+        r.tag_name === props.version :
+        r.latest)
   } catch (error) {
     console.error('Failed to fetch release info:', error)
   }
@@ -44,21 +47,18 @@ onMounted(async () => {
 })
 
 const getDownloadUrl = () => {
-  const version = props.version || latestRelease.value?.tag_name || 'latest'
-  const base = `/releases/${version}/mkforge`
-
-  if (platform.value === 'windows') {
-    return `${base}-windows-amd64.exe`
-  }
-
-  return `${base}-${platform.value}-${arch.value}`
+  if (!latestRelease.value) return ''
+  const version = latestRelease.value.tag_name
+  return `/releases/${version}/mkforge-${platform.value}-${arch.value}${platform.value === 'windows' ? '.exe' : ''}`
 }
 
 const getInstallCommand = () => {
+  if (!latestRelease.value) return ''
+
   if (platform.value === 'darwin' || platform.value === 'linux') {
     return 'brew tap mkforge/homebrew-mkforge && brew install mkforge'
   } else if (platform.value === 'windows') {
-    const version = props.version || latestRelease.value?.tag_name || 'latest'
+    const version = latestRelease.value.tag_name
     return `curl -L https://mkforge.github.io/releases/${version}/mkforge-windows-amd64.exe -o mkforge.exe`
   }
   return ''
@@ -72,7 +72,7 @@ const getInstallCommand = () => {
         <span class="download-icon">⬇️</span>
         Download MKForge
         <span v-if="showVersion" class="version">
-          {{ props.version || latestRelease.tag_name }}
+          {{ latestRelease.tag_name }}
         </span>
       </a>
 
