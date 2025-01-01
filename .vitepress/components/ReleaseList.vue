@@ -11,12 +11,12 @@ interface Release {
     darwin_amd64: string
     linux_amd64: string
     linux_arm64: string
+    windows_amd64: string
   }
 }
 
 const releases = ref<Release[]>([])
 const loading = ref(true)
-const error = ref<string | null>(null)
 
 onMounted(async () => {
   try {
@@ -25,9 +25,8 @@ onMounted(async () => {
     releases.value = data.releases
     loading.value = false
   } catch (err) {
-    error.value = 'Failed to load releases'
+    console.error('Error loading releases:', err)
     loading.value = false
-    console.error('Error fetching releases:', err)
   }
 })
 
@@ -38,10 +37,6 @@ const formatDate = (dateString: string) => {
     day: 'numeric'
   })
 }
-
-const formatChecksum = (checksum: string) => {
-  return `${checksum.substring(0, 8)}...${checksum.substring(checksum.length - 8)}`
-}
 </script>
 
 <template>
@@ -49,50 +44,44 @@ const formatChecksum = (checksum: string) => {
     <div v-if="loading" class="loading">
       Loading releases...
     </div>
-
-    <div v-else-if="error" class="error">
-      {{ error }}
-    </div>
-
-    <div v-else>
-      <div v-for="release in releases" :key="release.tag_name" class="release">
+    <div v-else class="release-list">
+      <div v-for="release in releases" :key="release.tag_name" class="release-card">
         <div class="release-header">
-          <h2>
-            {{ release.tag_name }}
-            <span v-if="release.latest" class="latest-badge">
-              Latest
-            </span>
-          </h2>
-          <div class="release-date">
-            Released on {{ formatDate(release.published_at) }}
-          </div>
+          <h3>{{ release.tag_name }}</h3>
+          <span v-if="release.latest" class="latest-badge">Latest</span>
+          <span class="release-date">Released {{ formatDate(release.published_at) }}</span>
         </div>
 
         <DownloadButton
             :version="release.tag_name"
             :show-version="true"
+            show-other-platforms
         />
 
-        <div class="checksums">
+        <div class="release-assets">
           <h4>SHA-256 Checksums</h4>
-          <ul>
-            <li>
-              <strong>macOS (Apple Silicon):</strong>
-              <code>{{ formatChecksum(release.assets.darwin_arm64) }}</code>
-            </li>
-            <li>
-              <strong>macOS (Intel):</strong>
-              <code>{{ formatChecksum(release.assets.darwin_amd64) }}</code>
-            </li>
-            <li>
-              <strong>Linux (x86_64):</strong>
-              <code>{{ formatChecksum(release.assets.linux_amd64) }}</code>
-            </li>
-            <li>
-              <strong>Linux (ARM64):</strong>
-              <code>{{ formatChecksum(release.assets.linux_arm64) }}</code>
-            </li>
-          </ul>
+          <div class="checksum-grid">
+            <div class="checksum-item">
+              <span class="platform">macOS (Apple Silicon)</span>
+              <code>{{ release.assets.darwin_arm64 }}</code>
+            </div>
+            <div class="checksum-item">
+              <span class="platform">macOS (Intel)</span>
+              <code>{{ release.assets.darwin_amd64 }}</code>
+            </div>
+            <div class="checksum-item">
+              <span class="platform">Linux (x64)</span>
+              <code>{{ release.assets.linux_amd64 }}</code>
+            </div>
+            <div class="checksum-item">
+              <span class="platform">Linux (ARM64)</span>
+              <code>{{ release.assets.linux_arm64 }}</code>
+            </div>
+            <div class="checksum-item">
+              <span class="platform">Windows</span>
+              <code>{{ release.assets.windows_amd64 }}</code>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -104,29 +93,23 @@ const formatChecksum = (checksum: string) => {
   margin: 2rem 0;
 }
 
-.loading,
-.error {
-  text-align: center;
-  padding: 2rem;
-  color: var(--vp-c-text-2);
+.release-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.error {
-  color: var(--vp-c-danger);
-}
-
-.release {
-  margin-bottom: 3rem;
-  padding: 2rem;
-  border-radius: 8px;
+.release-card {
+  padding: 1.5rem;
   background-color: var(--vp-c-bg-soft);
+  border-radius: 8px;
 }
 
 .release-header {
   margin-bottom: 1.5rem;
 }
 
-.release-header h2 {
+.release-header h3 {
   margin: 0;
   display: flex;
   align-items: center;
@@ -134,46 +117,60 @@ const formatChecksum = (checksum: string) => {
 }
 
 .latest-badge {
-  font-size: 0.8em;
+  display: inline-block;
   padding: 0.2em 0.6em;
-  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: 500;
   background-color: var(--vp-c-brand);
   color: white;
+  border-radius: 4px;
 }
 
 .release-date {
-  color: var(--vp-c-text-2);
+  display: block;
   font-size: 0.9em;
+  color: var(--vp-c-text-2);
   margin-top: 0.5rem;
 }
 
-.checksums {
-  margin-top: 2rem;
-  padding-top: 1rem;
+.release-assets {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
   border-top: 1px solid var(--vp-c-divider);
 }
 
-.checksums h4 {
+.release-assets h4 {
   margin: 0 0 1rem 0;
 }
 
-.checksums ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.checksum-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-.checksums li {
-  margin-bottom: 0.5rem;
+.checksum-item {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
-.checksums code {
+.platform {
   font-size: 0.9em;
+  color: var(--vp-c-text-2);
+}
+
+code {
+  font-size: 0.85em;
   padding: 0.2em 0.4em;
+  background-color: var(--vp-c-bg-mute);
   border-radius: 4px;
-  background-color: var(--vp-c-bg);
+  word-break: break-all;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--vp-c-text-2);
 }
 </style>
