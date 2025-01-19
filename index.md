@@ -16,11 +16,11 @@ features:
   - icon: 🔄
     title: Context Generation
     details: Create comprehensive context for LLM interactions with automatic project analysis and smart content processing.
-    
+
   - icon: 🔍
     title: Project Analysis
     details: Automatic detection of project type, dependencies, and structure with intelligent file filtering.
-    
+
   - icon: ⚡
     title: Fast & Efficient
     details: Optimized for performance with smart caching and incremental updates for large codebases.
@@ -28,11 +28,11 @@ features:
   - icon: 🛠️
     title: Customizable
     details: Configure ignore patterns, file size limits, and output formats to match your workflow.
-    
+
   - icon: 🔒
     title: Privacy-First
     details: All processing happens locally. Your code never leaves your machine.
-    
+
   - icon: 📦
     title: Easy Installation
     details: Simple installation via Homebrew or direct download, with automatic updates.
