@@ -41,7 +41,8 @@ export default defineConfig({
                     text: 'Guide',
                     items: [
                         { text: 'Introduction', link: '/guide/' },
-                        { text: 'Configuration', link: '/guide/config' }
+                        { text: 'Configuration', link: '/guide/config' },
+                        { text: 'Context Commands Guide', link: '/guide/context' }
                     ]
                 }
             ]
