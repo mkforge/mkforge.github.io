@@ -88,4 +88,3 @@ mkforge config diff
 
 - Learn about [Configuration](/guide/config) options and customization
 - Explore the [Context Command](/guide/context) in detail
-- Understand available [Plugins](/guide/plugins)
