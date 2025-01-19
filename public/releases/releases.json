@@ -15,13 +15,25 @@
     {
       "tag_name": "v0.1.1",
       "published_at": "2024-12-31T23:57:47Z",
-      "latest": true,
+      "latest": false,
       "assets": {
         "darwin_arm64": "38b0668391a3877a1562085561a498b30abe3bef8cba5a2888c658a75b27160e",
         "darwin_amd64": "86fa5f84ce622b5a81dc74e152f4b92d7bb5db62297ec8f6fd25a34b6c95c469",
         "linux_amd64": "88a6bd3da894187f8e9fe736ff9f0537ec3e095c19042003c167020cefc167a5",
         "linux_arm64": "add7af72410a792174d831b13dd7978be7db7437ca04c2974f1219aef5ce97c3",
         "windows_amd64": "ef289fe53f3bce5d1251c58dcd055829bce73b8888fcf327f688416f6919f57d"
+      }
+    },
+    {
+      "tag_name": "v0.1.2",
+      "published_at": "2025-01-19T01:19:24Z",
+      "latest": true,
+      "assets": {
+        "darwin_arm64": "ab2f4fa70284adb74a44f4f9e8d2a4f055856a34c6fbe3eed77dbbacd3a24e1c",
+        "darwin_amd64": "d9f7e3fabfde19022f85389bd83865acbc7bacacc6f196325a7c7feb7081ff40",
+        "linux_amd64": "1a4d23a389024f54eeedc907f4fccfe6cd5df3a49a1c10c2e512433f4e0b57f8",
+        "linux_arm64": "4c82f34a533c56a07f087813d63bda649f0d2b86428e8fddb81ede9e6f527f00",
+        "windows_amd64": "02276cb9d752cdb5053cccb0d6654d49b6533fa664ae3ac9270ab455d05d1bda"
       }
     }
   ]
