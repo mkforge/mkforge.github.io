@@ -6,11 +6,11 @@ hero:
   tagline: Generate context for LLMs, analyze projects, and automate development workflows
   actions:
     - theme: brand
-      text: Get Started
-      link: /guide/
+      text: Quick Install
+      link: '#quick-install'
     - theme: alt
-      text: Download
-      link: /downloads
+      text: Documentation
+      link: '/guide/'
 
 features:
   - icon: 🔄
@@ -38,19 +38,29 @@ features:
     details: Simple installation via Homebrew or direct download, with automatic updates.
 ---
 
-## Quick Start
+## Quick Install
 
+### macOS/Linux (Recommended)
 ```bash
-# Install via Homebrew (macOS/Linux)
 brew tap mkforge/homebrew-mkforge
 brew install mkforge
-
-# Generate context for current project
-mkforge context
-
-# Show help
-mkforge --help
 ```
+
+### Manual Install
+
+#### Linux/macOS
+```bash
+# One-line installer (recommended)
+curl -L https://mkforge.github.io/releases/latest/mkforge-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/') -o mkforge && chmod +x mkforge && sudo mv mkforge /usr/local/bin/
+```
+
+#### Windows
+```powershell
+# PowerShell installer (recommended)
+Invoke-WebRequest -Uri "https://mkforge.github.io/releases/latest/mkforge-windows-amd64.exe" -OutFile "mkforge.exe"
+```
+
+For other installation options and direct downloads, see our [downloads page](/downloads).
 
 ## Features
 
@@ -61,6 +71,30 @@ mkforge --help
 - **Fast & Efficient**: Optimized for large codebases with smart filtering
 - **Language Agnostic**: Works with any programming language or project structure
 
-## License
+## Example Usage
 
-MKForge is released under the MIT License. See the [GitHub repository](https://github.com/mkforge/mkforge) for more information.
+```bash
+# Generate context for current project
+mkforge context
+
+# Generate context for specific directory
+mkforge context ./my-project
+
+# Generate with custom output file
+mkforge context -o project-context.md
+```
+
+## Support
+
+- [GitHub Repository](https://github.com/mkforge/mkforge)
+- [Documentation](/guide/)
+- [Release Notes](/guide/changelog)
+
+<style>
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #0047ab 30%, #4169e1);
+  --vp-c-brand: #0047ab;
+  --vp-c-brand-dark: #003380;
+}
+</style>

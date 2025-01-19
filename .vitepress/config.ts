@@ -48,7 +48,7 @@ export default defineConfig({
         },
 
         socialLinks: [
-            { icon: 'github', link: 'https://github.com/mkforge/mkforge' }
+            { icon: 'github', link: 'https://github.com/mkforge' }
         ],
 
         footer: {
