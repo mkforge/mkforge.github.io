@@ -86,9 +86,8 @@ mkforge context -o project-context.md
 
 ## Support
 
-- [GitHub Repository](https://github.com/mkforge/mkforge)
+- [GitHub Repository](https://github.com/mkforge)
 - [Documentation](/guide/)
-- [Release Notes](/guide/changelog)
 
 <style>
 :root {
