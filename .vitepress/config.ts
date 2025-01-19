@@ -1,4 +1,7 @@
 import { defineConfig } from 'vitepress'
+import path from 'path'
+import fs from 'fs'
+import { glob } from 'glob'
 
 export default defineConfig({
     title: 'MKForge',
