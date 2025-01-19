@@ -1,16 +1,13 @@
 ---
 title: Downloads
-description: Download MKForge for your platform
+description: Install MKForge for your platform
 ---
 
-# Download MKForge
+# Installation Guide
 
-<DownloadButton :show-version="true" />
+## Recommended Methods
 
-## Installation Methods
-
-### Homebrew (Recommended for macOS/Linux)
-
+### Homebrew (macOS/Linux)
 ```bash
 # Install
 brew tap mkforge/homebrew-mkforge
@@ -20,41 +17,43 @@ brew install mkforge
 brew upgrade mkforge
 ```
 
-### Direct Download
-
-Download the appropriate binary for your platform from the releases below.
-
-#### Linux/macOS
+### One-Line Install (Linux/macOS)
 ```bash
-# Download (replace arch with amd64 or arm64)
-curl -L https://mkforge.github.io/releases/latest/mkforge-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/') -o mkforge
-
-# Make executable
-chmod +x mkforge
-
-# Optional: Move to system path
-sudo mv mkforge /usr/local/bin/
+# Download, make executable, and install to /usr/local/bin
+curl -L https://mkforge.github.io/releases/latest/mkforge-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/') -o mkforge && chmod +x mkforge && sudo mv mkforge /usr/local/bin/
 ```
 
-#### Windows
-Download the Windows executable from the latest release and add it to your system PATH.
+### PowerShell Install (Windows)
+```powershell
+# Download and install
+Invoke-WebRequest -Uri "https://mkforge.github.io/releases/latest/mkforge-windows-amd64.exe" -OutFile "mkforge.exe"
 
-### Go Install (Development Version)
-```bash
-go install github.com/mkforge/mkforge@latest
+# Optional: Add to PATH
+$env:Path += ";$pwd"
 ```
+
+## Binary Downloads
 
 ::: warning Note
-When installing via `go install`, version information will show as "main" since it's built directly from source. For the full release version information, use Homebrew or direct download.
+Direct binary downloads are provided for advanced users or special cases. For most users, we recommend using the installation methods above.
 :::
 
-## Releases
+<DownloadButton :show-version="true" />
 
-<ReleaseList />
+## System Requirements
+
+### Operating Systems
+- macOS (10.15 or later)
+- Linux (kernel 2.6.23 or later)
+- Windows 10/11
+
+### Architecture Support
+- x86_64 (amd64)
+- ARM64 (Apple Silicon, aarch64)
 
 ## Verifying Downloads
 
-Each release includes SHA-256 checksums for verification. To verify your download:
+Each release includes SHA-256 checksums for verification:
 
 ### Linux/macOS
 ```bash
@@ -77,15 +76,35 @@ $hash = Get-FileHash mkforge-windows-amd64.exe -Algorithm SHA256
 Select-String -Path checksums.txt -Pattern $hash.Hash
 ```
 
-## System Requirements
+## All Releases
 
-- **Operating Systems**
-    - macOS (10.15 or later)
-    - Linux (kernel 2.6.23 or later)
-    - Windows 10/11
-- **Architecture Support**
-    - x86_64 (amd64)
-    - ARM64 (Apple Silicon, aarch64)
+<ReleaseList />
+
+## Uninstallation
+
+### Homebrew (Recommended installation)
+```bash
+brew uninstall mkforge
+brew untap mkforge/homebrew-mkforge
+```
+
+### Manual Installation
+```bash
+# macOS/Linux
+sudo rm /usr/local/bin/mkforge
+
+# Windows PowerShell
+Remove-Item mkforge.exe
+```
+
+### Configuration Cleanup (Optional)
+```bash
+# Remove global config
+rm -rf $HOME/.config/mkforge
+
+# Remove local config
+rm .mkforge.yaml
+```
 
 <style scoped>
 .content {
@@ -100,9 +119,5 @@ Select-String -Path checksums.txt -Pattern $hash.Hash
   padding: 1rem;
   margin: 1rem 0;
   border-radius: 4px;
-}
-
-.warning p {
-  margin: 0;
 }
 </style>

@@ -1,0 +1,209 @@
+---
+title: Configuration
+description: Configuring MKForge for your needs
+---
+
+# Configuration Guide
+
+MKForge supports both global and project-specific configurations, providing flexibility for different workflows and requirements.
+
+## Configuration Levels
+
+### Global Configuration
+
+Located at `$HOME/.config/mkforge/config.yaml`:
+
+```yaml
+llm:
+  provider: anthropic  # LLM provider (anthropic, openai)
+  model: claude-3-sonnet  # Model to use
+  api_key: ""  # Optional API key
+
+context:
+  output_format: md  # Output format (md, txt)
+  ignore_patterns:  # Patterns to ignore
+    - ".git/"
+    - "node_modules/"
+    - "vendor/"
+  max_file_size: 1MB  # Maximum file size
+  max_files_to_include: 100  # Maximum files to process
+```
+
+### Project Configuration
+
+Create `.mkforge.yaml` in your project root:
+
+```yaml
+# Override only needed settings
+context:
+  ignore_patterns:
+    - "build/*"
+    - "*.tmp"
+  max_file_size: 2MB
+```
+
+## Configuration Commands
+
+### Initialize Configuration
+
+```bash
+# Initialize global config
+mkforge config init
+
+# Initialize local project config
+mkforge config init --local
+
+# Initialize minimal config
+mkforge config init --local --minimal
+
+# Force overwrite existing config
+mkforge config init --local --force
+```
+
+### View Configuration
+
+```bash
+# Show current configuration
+mkforge config show
+
+# Show merged configuration
+mkforge config show --merged
+
+# Show differences between global and local config
+mkforge config diff
+```
+
+## Configuration Options
+
+### LLM Settings
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| provider | LLM provider (anthropic, openai) | anthropic |
+| model | Model to use | claude-3-sonnet |
+| api_key | API key (optional) | - |
+
+### Context Settings
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| output_format | Output format (md, txt) | md |
+| ignore_patterns | Patterns to ignore | [".git/", "node_modules/", ...] |
+| max_file_size | Maximum file size | 1MB |
+| include_file_structure | Include directory structure | true |
+| include_file_content | Include file contents | true |
+| exclude_extensions | Extensions to exclude | [".exe", ".dll", ...] |
+| max_files_to_include | Maximum files to process | 100 |
+
+## Environment Variables
+
+Environment variables take precedence over both global and local configurations:
+
+| Variable | Description |
+|----------|-------------|
+| MKFORGE_LLM_PROVIDER | Override LLM provider |
+| MKFORGE_LLM_MODEL | Override LLM model |
+| MKFORGE_API_KEY | Set API key |
+| ANTHROPIC_API_KEY | Anthropic-specific API key |
+| OPENAI_API_KEY | OpenAI-specific API key |
+
+## Default Ignore Patterns
+
+```yaml
+ignore_patterns:
+  # Version Control
+  - ".git/"
+  - ".svn/"
+  
+  # Dependencies
+  - "node_modules/"
+  - "vendor/"
+  
+  # Build outputs
+  - "dist/"
+  - "build/"
+  
+  # IDE files
+  - ".idea/"
+  - ".vscode/"
+  
+  # System files
+  - ".DS_Store"
+  - "Thumbs.db"
+  
+  # Temporary files
+  - "*.swp"
+  - "*.swo"
+  - "*~"
+  
+  # Environment files
+  - ".env"
+  - "*.log"
+```
+
+## Default Excluded Extensions
+
+```yaml
+exclude_extensions:
+  # Executables
+  - ".exe"
+  - ".dll"
+  - ".so"
+  - ".dylib"
+  
+  # Archives
+  - ".zip"
+  - ".tar.gz"
+  - ".7z"
+  
+  # Media
+  - ".jpg"
+  - ".mp4"
+  - ".avi"
+  
+  # Documents
+  - ".pdf"
+  - ".docx"
+```
+
+## Project-Specific Detection
+
+MKForge automatically adds additional ignore patterns based on detected project types:
+
+### Node.js Projects
+```yaml
+ignore_patterns:
+  - "node_modules/"
+  - "dist/"
+  - "build/"
+  - "coverage/"
+  - ".next/"
+  - ".nuxt/"
+```
+
+### Go Projects
+```yaml
+ignore_patterns:
+  - "vendor/"
+  - "bin/"
+  - "dist/"
+```
+
+### Python Projects
+```yaml
+ignore_patterns:
+  - "venv/"
+  - "__pycache__/"
+  - "*.pyc"
+  - "build/"
+  - "dist/"
+  - "*.egg-info/"
+```
+
+### Java Projects
+```yaml
+ignore_patterns:
+  - "target/"
+  - "*.class"
+  - "*.jar"
+```

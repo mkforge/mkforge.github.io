@@ -4,6 +4,7 @@ export default defineConfig({
     title: 'MKForge',
     description: 'Swiss Army knife for development tasks',
 
+    // Base configuration
     head: [
         ['link', { rel: 'icon', href: '/favicon.ico' }],
         ['meta', {
@@ -23,12 +24,45 @@ export default defineConfig({
 
     cleanUrls: true,
 
+    themeConfig: {
+        logo: '/logo.png',
+
+        // Navigation based on synced structure
+        nav: [
+            { text: 'Home', link: '/' },
+            { text: 'Guide', link: '/guide/' },
+            { text: 'Downloads', link: '/downloads' }
+        ],
+
+        // Sidebar configuration matching main repo structure
+        sidebar: {
+            '/guide/': [
+                {
+                    text: 'Guide',
+                    items: [
+                        { text: 'Introduction', link: '/guide/' },
+                        { text: 'Configuration', link: '/guide/config' }
+                    ]
+                }
+            ]
+        },
+
+        socialLinks: [
+            { icon: 'github', link: 'https://github.com/mkforge' }
+        ],
+
+        footer: {
+            message: 'Released under the MIT License.',
+            copyright: 'Copyright © 2024-present MKForge'
+        }
+    },
+
+    // Handle binary downloads
     rewrites: {
         'releases/:version/mkforge-:platform': 'releases/:version/mkforge-:platform'
     },
 
-    // Add proper headers for binary files
-    transformHeaders: (headers: any[], path: string) => {
+    transformHeaders: (headers, path) => {
         if (path.startsWith('/releases/') && path.match(/mkforge-(darwin|linux|windows)/)) {
             headers.push([
                 'Content-Type',
@@ -39,49 +73,21 @@ export default defineConfig({
         return headers
     },
 
-    themeConfig: {
-        logo: '/logo.png',
-        nav: [
-            { text: 'Home', link: '/' },
-            { text: 'Downloads', link: '/downloads' },
-            { text: 'Guide', link: '/guide' }
-        ],
-        sidebar: false,
-        socialLinks: [
-            { icon: 'github', link: 'https://github.com/mkforge/mkforge' }
-        ],
-        footer: {
-            message: 'Released under the MIT License.',
-            copyright: 'Copyright © 2024-present MKForge'
-        }
-    },
+    // Add build configuration
+    buildEnd: async (siteConfig) => {
+        // Load current version from releases.json
+        const releasesPath = path.join(siteConfig.outDir, 'releases/releases.json')
+        if (fs.existsSync(releasesPath)) {
+            const releases = JSON.parse(fs.readFileSync(releasesPath, 'utf-8'))
+            const latestVersion = releases.releases.find(r => r.latest)?.tag_name || 'latest'
 
-    // Configure static asset handling
-    vite: {
-        server: {
-            fs: {
-                allow: ['public']
-            },
-            headers: {
-                // Add correct MIME types
-                '.js': 'application/javascript',
-                '.mjs': 'application/javascript',
-                '.css': 'text/css',
-                '.html': 'text/html'
-            }
-        },
-        build: {
-            assetsInlineLimit: 0,
-            rollupOptions: {
-                output: {
-                    assetFileNames: (assetInfo) => {
-                        if (assetInfo.name.match(/mkforge-(darwin|linux|windows)/)) {
-                            return `releases/[name].[ext]`
-                        }
-                        return 'assets/[name].[hash].[ext]'
-                    }
-                }
-            }
+            // Replace version placeholders in built files
+            const files = glob.sync(path.join(siteConfig.outDir, '**/*.html'))
+            files.forEach(file => {
+                let content = fs.readFileSync(file, 'utf-8')
+                content = content.replace(/@VERSION@/g, latestVersion)
+                fs.writeFileSync(file, content)
+            })
         }
-    },
+    }
 })
