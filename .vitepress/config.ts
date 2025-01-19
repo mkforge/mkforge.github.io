@@ -15,13 +15,18 @@ export default defineConfig({
             content: [
                 "default-src 'self'",
                 "style-src 'self' 'unsafe-inline'",
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-                "img-src 'self' data: https://api.iconify.design",
-                "connect-src 'self' https://api.iconify.design",
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cloud.umami.is", // Add umami domain
+                "img-src 'self' data: https://api.iconify.design https://cloud.umami.is", // Add umami domain
+                "connect-src 'self' https://api.iconify.design https://cloud.umami.is", // Add umami domain
                 "font-src 'self'",
                 "object-src 'none'",
                 "worker-src 'self' blob:"
             ].join('; ')
+        }],
+        ['script', {
+            defer: true,
+            'data-website-id': 'beebbd41-bd4e-4941-9726-d10d04a5a9ba',
+            src: 'https://cloud.umami.is/script.js'
         }]
     ],
 
