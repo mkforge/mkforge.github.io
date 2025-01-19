@@ -79,30 +79,51 @@ Select-String -Path checksums.txt -Pattern $hash.Hash
 
 ## System Requirements
 
-- **Operating Systems**
-    - macOS (10.15 or later)
-    - Linux (kernel 2.6.23 or later)
-    - Windows 10/11
-- **Architecture Support**
-    - x86_64 (amd64)
-    - ARM64 (Apple Silicon, aarch64)
+### Operating Systems
+- macOS (10.15 or later)
+- Linux (kernel 2.6.23 or later)
+- Windows 10/11
+
+### Architecture Support
+- x86_64 (amd64)
+- ARM64 (Apple Silicon, aarch64)
+
+## Uninstallation
+
+### Homebrew
+```bash
+brew uninstall mkforge
+brew untap mkforge/homebrew-mkforge
+```
+
+### Direct Download
+```bash
+# macOS/Linux
+rm /usr/local/bin/mkforge
+
+# Windows PowerShell
+Remove-Item mkforge.exe
+```
+
+### Configuration Cleanup (Optional)
+```bash
+# Remove global config
+rm -rf $HOME/.config/mkforge
+
+# Remove local config
+rm .mkforge.yaml
+```
 
 <style scoped>
-.content {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+.download-section {
+  margin: 3rem 0;
+  text-align: center;
 }
 
-.warning {
-  border-left: 4px solid var(--vp-c-warning);
-  background-color: var(--vp-c-warning-soft);
-  padding: 1rem;
-  margin: 1rem 0;
-  border-radius: 4px;
-}
-
-.warning p {
-  margin: 0;
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #0047ab 30%, #4169e1);
+  --vp-c-brand: #0047ab;
+  --vp-c-brand-dark: #003380;
 }
 </style>

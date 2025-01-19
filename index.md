@@ -6,11 +6,11 @@ hero:
   tagline: Generate context for LLMs, analyze projects, and automate development workflows
   actions:
     - theme: brand
+      text: Get Started
+      link: /guide/
+    - theme: alt
       text: Download
       link: /downloads
-    - theme: alt
-      text: Documentation
-      link: /guide
 
 features:
   - icon: 🔄
@@ -38,10 +38,6 @@ features:
     details: Simple installation via Homebrew or direct download, with automatic updates.
 ---
 
-<div class="download-section">
-  <DownloadButton />
-</div>
-
 ## Quick Start
 
 ```bash
@@ -65,28 +61,6 @@ mkforge --help
 - **Fast & Efficient**: Optimized for large codebases with smart filtering
 - **Language Agnostic**: Works with any programming language or project structure
 
-## Use Cases
-
-- Generate comprehensive context for LLM coding assistants
-- Document project structure and organization
-- Analyze codebase patterns and dependencies
-- Create project summaries for documentation
-- Prepare context for code reviews
-
 ## License
 
 MKForge is released under the MIT License. See the [GitHub repository](https://github.com/mkforge/mkforge) for more information.
-
-<style>
-.download-section {
-  margin: 3rem 0;
-  text-align: center;
-}
-
-:root {
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #0047ab 30%, #4169e1);
-  --vp-c-brand: #0047ab;
-  --vp-c-brand-dark: #003380;
-}
-</style>
