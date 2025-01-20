@@ -86,6 +86,5 @@ mkforge context --format txt
 
 ## Next Steps
 
-- Learn about [Configuration](/guide/config) options
-- See detailed [Command Reference](/guide/commands)
-- Check out [Advanced Usage](/guide/advanced)
+- Learn about [Configuration](/guide/config) options and customization
+- Explore the [Context Command](/guide/context) in detail
