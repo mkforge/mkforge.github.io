@@ -1,16 +1,15 @@
 ---
-title: Guide
-description: Getting Started with MKForge
+title: Getting Started
+description: Learn how to use MKForge with AI coding assistants
 ---
 
 # Getting Started with MKForge
 
-MKForge is a command-line tool designed to help with development tasks, primarily focused on generating context for Large Language Models (LLMs) and automating common development workflows.
+MKForge helps you get better answers from AI coding assistants by creating smart summaries of your projects. Instead of copying individual files, you can share a complete project overview that helps AI tools understand your code better.
 
-## Installation Methods
+## Quick Installation
 
 ### Homebrew (Recommended for macOS/Linux)
-
 ```bash
 # Install
 brew tap mkforge/homebrew-mkforge
@@ -20,71 +19,73 @@ brew install mkforge
 brew upgrade mkforge
 ```
 
-### Direct Download
-
-Download the appropriate binary for your platform:
+### Direct Installation
+Download and install the appropriate version for your system:
 
 ```bash
-# macOS (Intel)
-curl -L https://mkforge.github.io/releases/latest/mkforge-darwin-amd64 -o /usr/local/bin/mkforge && chmod +x /usr/local/bin/mkforge
-
-# macOS (Apple Silicon)
-curl -L https://mkforge.github.io/releases/latest/mkforge-darwin-arm64 -o /usr/local/bin/mkforge && chmod +x /usr/local/bin/mkforge
-
-# Linux (x86_64)
-curl -L https://mkforge.github.io/releases/latest/mkforge-linux-amd64 -o /usr/local/bin/mkforge && chmod +x /usr/local/bin/mkforge
-
-# Linux (ARM64)
-curl -L https://mkforge.github.io/releases/latest/mkforge-linux-arm64 -o /usr/local/bin/mkforge && chmod +x /usr/local/bin/mkforge
+# macOS/Linux
+curl -L https://mkforge.github.io/releases/latest/mkforge-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/') -o /usr/local/bin/mkforge && chmod +x /usr/local/bin/mkforge
 
 # Windows (PowerShell)
 Invoke-WebRequest -Uri https://mkforge.github.io/releases/latest/mkforge-windows-amd64.exe -OutFile mkforge.exe
 ```
 
-### Go Install (Development Version)
-```bash
-go install github.com/mkforge/mkforge@latest
-```
-
-::: warning Note
-When installing via `go install`, version information will show as "main" since it's built directly from source. For the full release version information, use Homebrew or direct download.
-:::
-
 ## Basic Usage
 
-### Generate Context
+### Creating Project Summaries
+
+1. Navigate to your project:
+```bash
+cd your-project
+```
+
+2. Generate a summary:
+```bash
+mkforge context
+```
+
+3. Share the generated `context.md` with your AI assistant
+
+### Common Options
 
 ```bash
-# Generate context for current directory
-mkforge context
+# Generate summary for a different project
+mkforge context ./other-project
 
-# Generate context for specific directory
-mkforge context ./my-project
-
-# Generate only structure
+# Only include project structure
 mkforge context --structure-only
 
-# Generate with custom output file
-mkforge context -o project-context.md
+# Save to a specific file
+mkforge context -o my-summary.md
+
+# Use text format instead of markdown
+mkforge context --format txt
 ```
 
-### Configuration Management
+## Working with AI Assistants
 
-```bash
-# Initialize global config
-mkforge config init
+### ChatGPT Example
+1. Generate your project summary
+2. Copy the contents of `context.md`
+3. Start a conversation with: "I have a project I'd like help with. Here's an overview:"
+4. Paste your project summary
+5. Ask your questions about the code
 
-# Initialize project config
-mkforge config init --local
+### Claude Example
+1. Generate your project summary
+2. Upload `context.md` to your conversation
+3. Ask your questions about the code
 
-# Show current config
-mkforge config show
+## Tips for Better Results
 
-# Show config differences
-mkforge config diff
-```
+1. **Start Fresh**: Begin a new conversation when sharing project context
+2. **Be Specific**: After sharing context, ask clear, specific questions
+3. **Update When Needed**: Regenerate the summary if you make significant changes
+4. **Structure Only**: Use `--structure-only` for initial questions about project organization
+5. **Custom Ignores**: Use `--ignore` to exclude irrelevant files
 
 ## Next Steps
 
-- Learn about [Configuration](/guide/config) options and customization
-- Explore the [Context Command](/guide/context) in detail
+- Learn about [Configuration](/guide/config) options
+- See detailed [Command Reference](/guide/commands)
+- Check out [Advanced Usage](/guide/advanced)

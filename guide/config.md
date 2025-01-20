@@ -1,40 +1,54 @@
 ---
 title: Configuration
-description: Configuring MKForge for your needs
+description: Customize how MKForge works with your projects
 ---
 
 # Configuration Guide
 
-MKForge supports both global and project-specific configurations, providing flexibility for different workflows and requirements.
+MKForge can be customized to work better with your specific projects and workflow. You can set up both global defaults and project-specific settings.
 
-## Configuration Levels
+## Quick Setup
+
+### Global Settings (Recommended)
+```bash
+# Initialize global configuration
+mkforge config init
+
+# View current settings
+mkforge config show
+```
+
+### Project Settings
+```bash
+# Initialize settings for current project
+mkforge config init --local
+
+# View combined settings (global + project)
+mkforge config show --merged
+```
+
+## Configuration Files
 
 ### Global Configuration
-
 Located at `$HOME/.config/mkforge/config.yaml`:
 
 ```yaml
-llm:
-  provider: anthropic  # LLM provider (anthropic, openai)
-  model: claude-3-sonnet  # Model to use
-  api_key: ""  # Optional API key
-
 context:
-  output_format: md  # Output format (md, txt)
-  ignore_patterns:  # Patterns to ignore
+  # Project summary settings
+  output_format: md     # Output format (md, txt)
+  ignore_patterns:      # Files to ignore
     - ".git/"
     - "node_modules/"
     - "vendor/"
-  max_file_size: 1MB  # Maximum file size
-  max_files_to_include: 100  # Maximum files to process
+  max_file_size: 1MB    # Maximum file size to include
+  max_files: 100        # Maximum files to process
 ```
 
 ### Project Configuration
-
-Create `.mkforge.yaml` in your project root:
+Create `.mkforge.yaml` in your project root to override specific settings:
 
 ```yaml
-# Override only needed settings
+# Override only the settings you want to change
 context:
   ignore_patterns:
     - "build/*"
@@ -42,133 +56,23 @@ context:
   max_file_size: 2MB
 ```
 
-## Configuration Commands
-
-### Initialize Configuration
-
-```bash
-# Initialize global config
-mkforge config init
-
-# Initialize local project config
-mkforge config init --local
-
-# Initialize minimal config
-mkforge config init --local --minimal
-
-# Force overwrite existing config
-mkforge config init --local --force
-```
-
-### View Configuration
-
-```bash
-# Show current configuration
-mkforge config show
-
-# Show merged configuration
-mkforge config show --merged
-
-# Show differences between global and local config
-mkforge config diff
-```
-
 ## Configuration Options
 
-### LLM Settings
-
-| Option | Description | Default |
-|--------|-------------|---------|
-| provider | LLM provider (anthropic, openai) | anthropic |
-| model | Model to use | claude-3-sonnet |
-| api_key | API key (optional) | - |
-
-### Context Settings
+### Summary Generation Settings
 
 | Option | Description | Default |
 |--------|-------------|---------|
 | output_format | Output format (md, txt) | md |
-| ignore_patterns | Patterns to ignore | [".git/", "node_modules/", ...] |
+| ignore_patterns | Files to ignore | [".git/", "node_modules/", ...] |
 | max_file_size | Maximum file size | 1MB |
-| include_file_structure | Include directory structure | true |
-| include_file_content | Include file contents | true |
-| exclude_extensions | Extensions to exclude | [".exe", ".dll", ...] |
-| max_files_to_include | Maximum files to process | 100 |
+| include_structure | Include directory structure | true |
+| include_content | Include file contents | true |
+| exclude_extensions | Extensions to ignore | [".exe", ".dll", ...] |
+| max_files | Maximum files to include | 100 |
 
-## Environment Variables
+## Smart Ignore Patterns
 
-Environment variables take precedence over both global and local configurations:
-
-| Variable | Description |
-|----------|-------------|
-| MKFORGE_LLM_PROVIDER | Override LLM provider |
-| MKFORGE_LLM_MODEL | Override LLM model |
-| MKFORGE_API_KEY | Set API key |
-| ANTHROPIC_API_KEY | Anthropic-specific API key |
-| OPENAI_API_KEY | OpenAI-specific API key |
-
-## Default Ignore Patterns
-
-```yaml
-ignore_patterns:
-  # Version Control
-  - ".git/"
-  - ".svn/"
-  
-  # Dependencies
-  - "node_modules/"
-  - "vendor/"
-  
-  # Build outputs
-  - "dist/"
-  - "build/"
-  
-  # IDE files
-  - ".idea/"
-  - ".vscode/"
-  
-  # System files
-  - ".DS_Store"
-  - "Thumbs.db"
-  
-  # Temporary files
-  - "*.swp"
-  - "*.swo"
-  - "*~"
-  
-  # Environment files
-  - ".env"
-  - "*.log"
-```
-
-## Default Excluded Extensions
-
-```yaml
-exclude_extensions:
-  # Executables
-  - ".exe"
-  - ".dll"
-  - ".so"
-  - ".dylib"
-  
-  # Archives
-  - ".zip"
-  - ".tar.gz"
-  - ".7z"
-  
-  # Media
-  - ".jpg"
-  - ".mp4"
-  - ".avi"
-  
-  # Documents
-  - ".pdf"
-  - ".docx"
-```
-
-## Project-Specific Detection
-
-MKForge automatically adds additional ignore patterns based on detected project types:
+MKForge automatically adds relevant ignore patterns based on your project type:
 
 ### Node.js Projects
 ```yaml
@@ -207,3 +111,68 @@ ignore_patterns:
   - "*.class"
   - "*.jar"
 ```
+
+## Common Configuration Tasks
+
+### Setting Up a New Project
+```bash
+# Create minimal project config
+mkforge config init --local --minimal
+
+# See what's different from global config
+mkforge config diff
+```
+
+### Updating Settings
+```bash
+# Show current effective settings
+mkforge config show --merged
+
+# Create new config, replacing existing
+mkforge config init --force
+```
+
+### Exclude File Types
+```yaml
+context:
+  exclude_extensions:
+    - ".log"
+    - ".tmp"
+    - ".cache"
+```
+
+### Customize File Limits
+```yaml
+context:
+  max_file_size: 2MB
+  max_files: 200
+```
+
+## Best Practices
+
+1. **Start Global**: Set up global defaults first with `mkforge config init`
+2. **Project Overrides**: Use project configs only for project-specific needs
+3. **Minimal Local**: Use `--minimal` for project configs to override only what's needed
+4. **Check Changes**: Use `mkforge config diff` to verify your changes
+5. **Version Control**: Commit `.mkforge.yaml` to share project settings with your team
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Files Not Included**
+    - Check file size limits
+    - Verify ignore patterns
+    - Use `--debug` flag for detailed info
+
+2. **Config Not Applied**
+    - Ensure correct config file location
+    - Check file permissions
+    - Use `config show --merged` to verify
+
+3. **Performance Issues**
+    - Adjust `max_file_size` and `max_files`
+    - Add specific ignore patterns
+    - Use structure-only mode for large projects
+
+Need more help? Visit our [GitHub repository](https://github.com/mkforge/mkforge) for support.

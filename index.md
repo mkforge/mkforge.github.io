@@ -2,8 +2,8 @@
 layout: home
 hero:
   name: MKForge
-  text: Swiss Army knife for development tasks
-  tagline: Generate context for LLMs, analyze projects, and automate development workflows
+  text: Better AI Coding Help
+  tagline: Help AI assistants understand your code projects to get more accurate, relevant answers
   actions:
     - theme: brand
       text: Quick Install
@@ -13,30 +13,47 @@ hero:
       link: '/guide/'
 
 features:
-  - icon: 🔄
-    title: Context Generation
-    details: Create comprehensive context for LLM interactions with automatic project analysis and smart content processing.
+  - icon: 🤖
+    title: Work Better with AI
+    details: Get more accurate help from ChatGPT, Claude, and other AI assistants by letting them understand your entire project.
+
+  - icon: 🎯
+    title: One Command Setup
+    details: Just run 'mkforge' in your project directory and get a complete project summary ready for AI tools.
 
   - icon: 🔍
-    title: Project Analysis
-    details: Automatic detection of project type, dependencies, and structure with intelligent file filtering.
+    title: Smart Project Analysis
+    details: Automatically detects project structure, important files, and ignores irrelevant content like build files and dependencies.
 
   - icon: ⚡
     title: Fast & Efficient
-    details: Optimized for performance with smart caching and incremental updates for large codebases.
+    details: Only processes relevant files and updates when changes occur, perfect for both small and large projects.
 
   - icon: 🛠️
-    title: Customizable
-    details: Configure ignore patterns, file size limits, and output formats to match your workflow.
+    title: Works Everywhere
+    details: Compatible with any programming language or project type - from web apps to data science projects.
 
   - icon: 🔒
     title: Privacy-First
-    details: All processing happens locally. Your code never leaves your machine.
-
-  - icon: 📦
-    title: Easy Installation
-    details: Simple installation via Homebrew or direct download, with automatic updates.
+    details: All analysis happens on your machine. Your code never leaves your computer.
 ---
+
+## What is MKForge?
+
+MKForge helps you get better answers from AI coding assistants like ChatGPT and Claude. Instead of copying and pasting individual files, MKForge creates a smart summary of your entire project that helps AI tools understand your code better.
+
+### How It Works
+
+1. Run `mkforge` in your project directory
+2. Share the generated summary with your AI assistant
+3. Get more accurate, context-aware help with your code
+
+### Example Use Cases
+
+- Get help fixing bugs by letting AI see the whole context
+- Ask for code improvements with full project understanding
+- Get better explanations of how your code works together
+- Request new features with full project context
 
 ## Quick Install
 
@@ -46,48 +63,42 @@ brew tap mkforge/homebrew-mkforge
 brew install mkforge
 ```
 
-### Manual Install
+### Direct Download
+
+We provide pre-built binaries for all major platforms:
 
 #### Linux/macOS
 ```bash
-# One-line installer (recommended)
+# One-line installer
 curl -L https://mkforge.github.io/releases/latest/mkforge-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/') -o mkforge && chmod +x mkforge && sudo mv mkforge /usr/local/bin/
 ```
 
 #### Windows
 ```powershell
-# PowerShell installer (recommended)
+# PowerShell installer
 Invoke-WebRequest -Uri "https://mkforge.github.io/releases/latest/mkforge-windows-amd64.exe" -OutFile "mkforge.exe"
 ```
 
-For other installation options and direct downloads, see our [downloads page](/downloads).
+For other installation options, see our [downloads page](/downloads).
 
-## Features
-
-- **Smart Project Analysis**: Automatically detects project type, structure, and relevant files
-- **Configurable Output**: Choose between Markdown or text output with customizable formatting
-- **Git Integration**: Includes Git information and respects .gitignore patterns
-- **Incremental Updates**: Only regenerates context when source files change
-- **Fast & Efficient**: Optimized for large codebases with smart filtering
-- **Language Agnostic**: Works with any programming language or project structure
-
-## Example Usage
+## Basic Usage
 
 ```bash
-# Generate context for current project
-mkforge context
+# Go to your project directory
+cd your-project
 
-# Generate context for specific directory
-mkforge context ./my-project
+# Generate a project summary
+mkforge
 
-# Generate with custom output file
-mkforge context -o project-context.md
+# The summary is saved as 'your-project.context.md' by default
+# Share this file with your AI assistant!
 ```
 
 ## Support
 
-- [GitHub Repository](https://github.com/mkforge)
-- [Documentation](/guide/)
+- [Documentation](/guide/) - Learn all features
+- [GitHub Repository](https://github.com/mkforge) - Report issues
+- [Downloads](/downloads) - Get the latest version
 
 <style>
 :root {
